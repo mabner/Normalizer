@@ -20,6 +20,8 @@ namespace Normalizer
 
                 Console.WriteLine(newString);
 
+                TextCopy.ClipboardService.SetText(newString);
+
                 Console.WriteLine("\nPress Esc to exit or Anykey for a new string");
             } while (Console.ReadKey(true).Key != ConsoleKey.Escape);
 
@@ -45,9 +47,9 @@ namespace Normalizer
 
             // Converts the string builder back to string and returns it
             // in a unicode form.
-            string newString = sb.ToString().Normalize(NormalizationForm.FormD);
+            string _newString = sb.ToString().Normalize(NormalizationForm.FormD);
 
-            string[] words = newString.Split(' ');
+            string[] words = _newString.Split(' ');
 
             //Console.WriteLine($"{words.Length} words");
 
@@ -56,8 +58,10 @@ namespace Normalizer
             {
                 words[i] = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(words[i]);
             }
+            
+            _newString = string.Join("", words);
 
-            return string.Join("", words);
+            return _newString;
         }
     }
 }
