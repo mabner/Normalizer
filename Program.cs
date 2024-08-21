@@ -8,13 +8,21 @@ namespace Normalizer
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Input original text:");
 
-            string oldString = Console.ReadLine();
+            do
+            {
+                Console.Clear();
+                Console.WriteLine("Input original text:");
 
-            string newString = StringNormalizer(oldString);
+                string oldString = Console.ReadLine();
 
-            Console.WriteLine(newString);
+                string newString = StringNormalizer(oldString);
+
+                Console.WriteLine(newString);
+
+                Console.WriteLine("\nPress Esc to exit or Anykey for a new string");
+            } while (Console.ReadKey(true).Key != ConsoleKey.Escape);
+
         }
 
         private static string StringNormalizer(string? oldString)
