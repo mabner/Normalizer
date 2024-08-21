@@ -39,7 +39,9 @@ namespace Normalizer
             // in a unicode form.
             string newString = sb.ToString().Normalize(NormalizationForm.FormD);
 
-            return newString;
+            string[] words = newString.Split(' ');
+
+            return string.Join("",words);
         }
     }
 }
