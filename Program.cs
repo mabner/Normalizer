@@ -41,7 +41,15 @@ namespace Normalizer
 
             string[] words = newString.Split(' ');
 
-            return string.Join("",words);
+            //Console.WriteLine($"{words.Length} words");
+
+            // Capitalizes the first letter of each word
+            for (int i = 0; i < words.Length; i++)
+            {
+                words[i] = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(words[i]);
+            }
+
+            return string.Join("", words);
         }
     }
 }
