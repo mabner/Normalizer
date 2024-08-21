@@ -1,4 +1,6 @@
 ﻿
+using System.Text;
+
 namespace Normalizer
 {
     internal class Program
@@ -16,7 +18,10 @@ namespace Normalizer
 
         private static string StringNormalizer(string? oldString)
         {
-            throw new NotImplementedException();
+            // Deconstructs special caracter diacritics (accents). E.g. ã > a~
+            string normalizedOldString = oldString.Normalize(NormalizationForm.FormD);
+
+            return normalizedOldString;
         }
     }
 }
