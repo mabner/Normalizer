@@ -35,7 +35,11 @@ namespace Normalizer
                 }
             }
 
-            return sb.ToString();
+            // Converts the string builder back to string and returns it
+            // in a unicode form.
+            string newString = sb.ToString().Normalize(NormalizationForm.FormD);
+
+            return newString;
         }
     }
 }
