@@ -1,0 +1,55 @@
+﻿using System.Globalization;
+using System.Text;
+
+do
+{
+    Console.Clear();
+    Console.WriteLine("Input original text:");
+
+    string oldString = Console.ReadLine();
+
+    string newString = StringNormalizer(oldString);
+
+    Console.WriteLine(newString);
+
+    TextCopy.ClipboardService.SetText(newString);
+
+    Console.WriteLine("\nPress Esc to exit or Anykey for a new string");
+} while (Console.ReadKey(true).Key != ConsoleKey.Escape);
+
+string StringNormalizer(string? oldString)
+{
+    // Deconstructs special caracter diacritics (accents). E.g. ã > a~
+    string normalizedOldString = oldString.Normalize(NormalizationForm.FormD).Replace(":","");
+
+    // Removes diacritics (accents)
+    StringBuilder sb = new StringBuilder();
+    foreach (char c in normalizedOldString)
+    {
+        UnicodeCategory uc = CharUnicodeInfo.GetUnicodeCategory(c);
+        // Appends only the base caracters to the sb string builder.
+        // Removes the non-spacing marks. E.g. ´, `, ~, ^.
+        if (uc != UnicodeCategory.NonSpacingMark)
+        {
+            sb.Append(c);
+        }
+    }
+
+    // Converts the string builder back to string and returns it
+    // in a unicode form.
+    string _newString = sb.ToString().Normalize(NormalizationForm.FormD);
+
+    string[] words = _newString.Split(' ');
+
+    //Console.WriteLine($"{words.Length} words");
+
+    // Capitalizes the first letter of each word
+    for (int i = 0; i < words.Length; i++)
+    {
+        words[i] = CultureInfo.CurrentCulture.TextInfo.ToLower(words[i]);
+    }
+
+    _newString = string.Join("_", words);
+
+    return _newString;
+}
